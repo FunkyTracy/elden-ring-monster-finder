@@ -1,0 +1,141 @@
+﻿<Window x:Class="MonsterFinder.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MonsterFinder"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <local:MainVM/>
+    </Window.DataContext>
+    
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Monster Finder" HorizontalAlignment="Center" 
+                   FontSize="40" FontWeight="Bold" Foreground="SlateGray"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <Grid Grid.Column="0" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.25*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Text="Please Tell Me Your Location" 
+                               Foreground="SlateGray" FontSize="20"
+                               FontWeight="Bold" TextWrapping="Wrap"/>
+                    <ComboBox Grid.Column="1"
+                             x:Name="userLocation" 
+                              Height="auto"
+                              ItemsSource="{Binding MainLocations}"
+                              SelectedValue="{Binding Location}"/>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Button Content="Find Monster" Margin="10" Command="{Binding FindMonsterByLocationButton}"/>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Column="1" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.25*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Text="Or, Tell Me the Item They Drop" 
+                               Foreground="SlateGray" FontSize="20"
+                               FontWeight="Bold" TextWrapping="Wrap"/>
+                    <TextBox Grid.Column="1" x:Name="DropsTextEntryBox" Text="{Binding Drops}"/>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Button Content="Find Monster By Drop" Margin="10" Command="{Binding FindMonsterByDrop}"/>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.6*"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" 
+                               Text="Monster Name" Foreground="SlateGray" 
+                               FontSize="16" FontWeight="Bold" Margin="10"
+                               TextWrapping="Wrap"/>
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding DisplayMonster.Name}"
+                               Foreground="SlateGray" 
+                               Margin="10" TextWrapping="Wrap"/>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.6*"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" 
+                               Text="Location Description" Foreground="SlateGray" 
+                               FontSize="16" FontWeight="Bold" Margin="10"
+                               TextWrapping="Wrap"/>
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding DisplayMonster.Location}"
+                               Foreground="SlateGray" 
+                               Margin="10" TextWrapping="Wrap"/>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.6*"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Text="Drops" Foreground="SlateGray" 
+                               FontSize="16" FontWeight="Bold" Margin="10"/>
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding DisplayMonster.Drops}"
+                               Foreground="SlateGray" 
+                               Margin="10" TextWrapping="Wrap"/>
+                </Grid>
+            </Grid>
+
+            <Image x:Name="Double" Grid.Column="1" Source="{Binding DisplayMonster.PhotoURL}" Margin="10">
+                <Image.InputBindings>
+                    <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding DoubleClickImage}"/>
+                </Image.InputBindings>
+            </Image>
+        </Grid>
+    </Grid>
+</Window>
